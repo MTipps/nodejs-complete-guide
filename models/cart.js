@@ -16,7 +16,6 @@ module.exports = class Cart {
       if (!err) {
         cart = JSON.parse(fileContent);
       }
-
       // Analyze the cart => Find existing product
       const existingProductIndex = cart.products.findIndex(prod => prod.id === id);
       const existingProduct = cart.products[existingProductIndex];
@@ -55,4 +54,15 @@ module.exports = class Cart {
       });
     });
   }
-}
+
+  static getCart(cb) {
+    fs.readFile(p, (err, fileContent) => {
+      const cart = JSON.parse(fileContent);
+      if (err) {
+        cb(null);
+      } else {
+        cb(cart);
+      }
+    });
+  }
+};
